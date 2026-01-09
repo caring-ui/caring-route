@@ -3,7 +3,7 @@
  # @Author: Wanko
  # @Date: 2023-02-16 18:41:13
  # @LastEditors: Wanko
- # @LastEditTime: 2023-04-27 18:31:24
+ # @LastEditTime: 2026-01-09 17:46:57
  # @Description: 
 ### 
 set -e
@@ -18,7 +18,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
   echo "🕙 Releasing $VERSION ..."
   
-  git ci "[build] $VERSION"
+  git commit -m "[build] $VERSION"
   npm version $VERSION --message "[release] $VERSION"
   
   cd src/caring-route
