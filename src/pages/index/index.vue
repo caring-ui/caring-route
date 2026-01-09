@@ -2,7 +2,7 @@
  * @Author: Wanko
  * @Date: 2023-04-27 17:39:09
  * @LastEditors: Wanko
- * @LastEditTime: 2024-05-29 16:18:51
+ * @LastEditTime: 2024-07-16 17:26:10
  * @Description: 
 -->
 <template>
@@ -79,6 +79,9 @@ export default {
       route({
         type: 'navigateTo',
         url,
+        data: {
+          a: '333'
+        },
         events: {
           onSuccess: (data) => {
             console.log('onSuccess', data)

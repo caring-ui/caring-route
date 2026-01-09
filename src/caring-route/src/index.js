@@ -78,14 +78,16 @@ class Route {
       return dispatchNavigate(config)
     }
     if (isObject(url)) {
-      console.log('isobject')
+      console.log('isobject', url)
       // 如果url为对象，则config为type, 即route(url, type)的形式
       config = url
       config.routeUrl = url.url
       config.routeType = url.type || 'navigateTo'
       Reflect.deleteProperty(config, 'url')
       Reflect.deleteProperty(config, 'type')
-      config.routeUrl = this.mixinParam(config.routeUrl, config.params)
+
+      const data = config.params || config.data
+      config.routeUrl = this.mixinParam(config.routeUrl, data)
       return dispatchNavigate(config)
     }
   }
