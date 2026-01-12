@@ -2,7 +2,7 @@
  * @Author: Wanko
  * @Date: 2023-04-27 17:39:09
  * @LastEditors: Wanko
- * @LastEditTime: 2024-07-16 17:26:10
+ * @LastEditTime: 2026-01-12 15:13:11
  * @Description: 
 -->
 <template>
@@ -31,10 +31,10 @@
       <button class="bg-purple-light" @click="toRoute4('/pages/index/four')">
         route('/pages/index/four', {event}) 监听事件
       </button>
-      <button class="bg-purple-light" @click="toMini">
-        打开微信小程序
-      </button>
     </view>
+    <button class="bg-purple-light m" @click="toMini">
+      打开微信小程序
+    </button>
   </view>
 </template>
 <script>
@@ -43,19 +43,28 @@ import route from '../../caring-route/src/index'
 
 export default {
   methods: {
-    toMini(){
+    toMini() {
       route.mini('wx87b638cc2075e9c1', 'pages/tabbar/components')
     },
     toRoute(url) {
       route({
-        url
+        url,
+        data: {
+          name: 'wanko',
+          age: 25,
+          url: 'http://www.example.com'
+        }
       })
-      // route(url).then((_) => {
+      // route(url, {
+      //   name: 'wanko',
+      //   age: 25,
+      //   url: 'http://www.example.com'
+      // }).then((_) => {
       //   console.log('跳转成功')
       // })
     },
     toRoute1(url) {
-      route.to(url, {
+      route.navigateTo(url, {
         name: 'wanko',
         age: 25,
         hoby: {
@@ -63,10 +72,14 @@ export default {
             level: 1
           }
         },
-        arr: [1,2,3,4,5],
-        arrObj: [{
-          name:'wanko'
-        }, 23, 'age']
+        arr: [1, 2, 3, 4, 5],
+        arrObj: [
+          {
+            name: 'wanko'
+          },
+          23,
+          'age'
+        ]
       })
     },
     toRoute2(url) {
@@ -77,7 +90,6 @@ export default {
     },
     toRoute4(url) {
       route({
-        type: 'navigateTo',
         url,
         data: {
           a: '333'

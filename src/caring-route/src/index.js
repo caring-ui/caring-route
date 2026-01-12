@@ -50,9 +50,11 @@ class Route {
   }
   // 解码onload中的query参数
   query(query) {
+    console.log('🐛 ~ index.js:53 ~ Route ~ query ~ query 🐛:', query)
     const obj = {}
     for (const key in query) {
       // 非对象数据才会处理
+
       if (typeof query[key] !== 'object') {
         const q = decodeURIComponent(query[key])
         console.log('🚀 ===>q：', q)
@@ -64,6 +66,10 @@ class Route {
         //     obj[key] = JSON.parse(q)
         //   }
         // }
+      }
+      // 处理 url 是否包含 http 链接的情况
+      if (query[key].includes('http')) {
+        obj[key] = decodeURIComponent(query[key])
       }
     }
     return Object.assign(query, obj)
@@ -118,6 +124,9 @@ class Route {
     }
     this._navigateMethod(config)
   }
+  navigateTo(...params) {
+    this.to(...params)
+  }
 
   back(delta) {
     const config = {
@@ -126,6 +135,9 @@ class Route {
     }
     this._navigateMethod(config)
   }
+  navigateBack(...params) {
+    this.back(...params)
+  }
 
   tab(routeUrl) {
     const config = {
@@ -133,6 +145,9 @@ class Route {
       routeUrl
     }
     this._navigateMethod(config)
+  }
+  switchTab(...params) {
+    this.tab(...params)
   }
 
   direct(routeUrl, params) {
@@ -143,6 +158,9 @@ class Route {
     }
     this._navigateMethod(config)
   }
+  redirectTo(...params) {
+    this.direct(...params)
+  }
 
   launch(routeUrl, params) {
     const config = {
@@ -151,6 +169,9 @@ class Route {
       params
     }
     this._navigateMethod(config)
+  }
+  reLaunch(...params) {
+    this.launch(...params)
   }
   _navigateMethod(config) {
     if (PARAMS_ROUTE.includes(config.routeType)) {

@@ -2,6 +2,7 @@
   "name": "caring-route",
   "version": "1.0.2",
   "scripts": {
+    "dev": "npm run dev:mp-weixin",
     "pub": "sh release.sh",
     "serve": "npm run dev:h5",
     "dev:app": "uni -p app",

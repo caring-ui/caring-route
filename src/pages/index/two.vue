@@ -2,7 +2,7 @@
  * @Author: Wanko
  * @Date: 2023-04-27 17:39:09
  * @LastEditors: Wanko
- * @LastEditTime: 2024-05-29 15:51:29
+ * @LastEditTime: 2026-01-12 15:03:36
  * @Description: 
 -->
 <template>
@@ -25,8 +25,9 @@ import route from '@/caring-route/src/index.js'
 
 export default {
   onLoad(options) {
+    console.log('🐛 ~ two.vue:28 ~ options 🐛:', options)
     const query = route.query(options)
-    console.log(query)
+    console.log('🐛 ~ two.vue:29 ~ query 🐛:', query)
   },
   methods: {
     toRoute(url) {
