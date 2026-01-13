@@ -50,14 +50,12 @@ class Route {
   }
   // 解码onload中的query参数
   query(query) {
-    console.log('🐛 ~ index.js:53 ~ Route ~ query ~ query 🐛:', query)
     const obj = {}
     for (const key in query) {
       // 非对象数据才会处理
 
       if (typeof query[key] !== 'object') {
         const q = decodeURIComponent(query[key])
-        console.log('🚀 ===>q：', q)
         if (isJsonString(q)) {
           obj[key] = JSON.parse(q)
         }
@@ -84,7 +82,6 @@ class Route {
       return dispatchNavigate(config)
     }
     if (isObject(url)) {
-      console.log('isobject', url)
       // 如果url为对象，则config为type, 即route(url, type)的形式
       config = url
       config.routeUrl = url.url
