@@ -21,8 +21,7 @@ then
   cd src/caring-route
   npm version $VERSION --message "[release] $VERSION"
   
-  cd ../../
-  git add - .d
+  git add .
   git commit -m "[build] $VERSION"  
   git push origin master
   cd src/caring-route
