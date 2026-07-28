@@ -1,5 +1,6 @@
 {
   "name": "caring-route-example",
+  "version": "1.0.5",
   "scripts": {
     "dev": "npm run dev:mp-weixin",
     "pub": "sh release.sh",
@@ -47,7 +48,7 @@
     "@dcloudio/uni-mp-weixin": "3.0.0-alpha-3031320220314002",
     "@dcloudio/uni-quickapp-webview": "3.0.0-alpha-3031320220314002",
     "caring-css": "^0.4.1",
-    "caring-route": "^1.0.5",
+    "caring-route": "^0.0.5",
     "vue": "^3.2.31",
     "vue-i18n": "^9.1.9",
     "vuex": "^4.0.2"

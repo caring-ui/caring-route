@@ -17,13 +17,13 @@ echo  # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   echo "🕙 Releasing $VERSION ..."
-  
-  git commit -m "[build] $VERSION"
   npm version $VERSION --message "[release] $VERSION"
-  
   cd src/caring-route
   npm version $VERSION --message "[release] $VERSION"
+  
   cd ../../
+  git add - .d
+  git commit -m "[build] $VERSION"  
   git push origin master
   cd src/caring-route
   npm publish
