@@ -24,7 +24,6 @@ then
   git add .
   git commit -m "[build] $VERSION"  
   git push origin master
-  cd src/caring-route
   npm publish
 fi
 echo "🎉 $VERSION version publish success"
