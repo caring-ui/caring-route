@@ -11,11 +11,16 @@
 
 ## [文档](https://caringui.cn/module/caring-route.html)
 
-
+## [npm](https://www.npmjs.com/package/caring-route)
 ## 运行
 v14 NODE 环境
 ```bash
 npm install
 npm run dev
 
+```
+## 发布
+发布前需先提交代码到 master 分支，然后执行以下命令
+```bash
+npm run pub
 ```
