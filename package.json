@@ -1,6 +1,6 @@
 {
   "name": "caring-route-example",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "scripts": {
     "dev": "npm run dev:mp-weixin",
     "pub": "sh release.sh",
