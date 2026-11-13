@@ -48,17 +48,20 @@ export default {
     },
     toRoute(url) {
       route({
+        type: 'redirectTo',
         url,
         data: {
-          name: 'wanko',
-          age: 25,
-          url: 'http://www.example.com'
+          type:'register',
+          url: 'http://www.example.com',
+          user: {
+            name: 'wanko',
+            age: 25,
+            site: 'https://www.example.com'
+          }
         }
       })
       // route(url, {
-      //   name: 'wanko',
-      //   age: 25,
-      //   url: 'http://www.example.com'
+      //   user: { name: 'wanko', age: 25, url: 'http://www.example.com' }
       // }).then((_) => {
       //   console.log('跳转成功')
       // })

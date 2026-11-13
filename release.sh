@@ -20,6 +20,7 @@ then
   npm version $VERSION --message "[release] $VERSION"
   cd src/caring-route
   npm version $VERSION --message "[release] $VERSION"
+  npm run build
   
   git add .
   git commit -m "[build] $VERSION"  

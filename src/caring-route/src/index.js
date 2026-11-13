@@ -20,16 +20,18 @@ function dispatchNavigate(config) {
 class Route {
   handleParams(params = {}) {
     const obj = {}
-    for (let key in params) {
-      if (typeof params[key] === 'object') {
-        obj[key] = encodeURIComponent(JSON.stringify(params[key]))
-      }
-      // 如果包含http链接进行编码操作
-      if (typeof params[key] === 'string' && params[key].includes('http')) {
-        params[key] = encodeURIComponent(params[key])
-      }
+    for (const key in params) {
+      if (!Object.prototype.hasOwnProperty.call(params, key)) continue
+
+      const value = params[key]
+      if (value === undefined || value === null || value === '') continue
+
+      // 对象/数组序列化为 JSON 后统一编码，其余值转成字符串后编码
+      obj[key] = encodeURIComponent(
+        typeof value === 'object' ? JSON.stringify(value) : String(value)
+      )
     }
-    return Object.assign(params, obj)
+    return obj
   }
 
   mini(appId, path) {
@@ -49,49 +51,53 @@ class Route {
     })
   }
   // 解码onload中的query参数
-  query(query) {
+  query(rawQuery) {
     const obj = {}
-    for (const key in query) {
-      // 非对象数据才会处理
+    for (const key of Object.keys(rawQuery || {})) {
+      const raw = rawQuery[key]
+      // 非字符串数据不处理（部分平台可能已解析成对象）
+      if (typeof raw !== 'string') continue
 
-      if (typeof query[key] !== 'object') {
-        const q = decodeURIComponent(query[key])
-        if (isJsonString(q)) {
-          obj[key] = JSON.parse(q)
-        }
-        // if (q.startsWith('{') || q.startsWith('[')) {
-        //   if (typeof q === 'string') {
-        //     obj[key] = JSON.parse(q)
-        //   }
-        // }
+      // 部分平台在 onLoad 前已自动解码过一次，这里做容错解码
+      let value = raw
+      try {
+        value = decodeURIComponent(raw)
+      } catch (e) {
+        // 非法转义（如 "100%"）或已解码时保持原值
       }
-      // 处理 url 是否包含 http 链接的情况
-      if (query[key].includes('http')) {
-        obj[key] = decodeURIComponent(query[key])
+
+      if (isJsonString(value)) {
+        try {
+          obj[key] = JSON.parse(value)
+        } catch (e) {
+          obj[key] = value
+        }
+      } else {
+        obj[key] = value
       }
     }
-    return Object.assign(query, obj)
+    // 不修改入参，返回合并后的新对象
+    return Object.assign({}, rawQuery, obj)
   }
   navigate(url, config) {
     if (!url) return false
 
     if (typeof url === 'string') {
       // 如果url为字符串，则config为params, 即route(url, params)的形式
-      if (!config) config = {}
-      config.routeUrl = this.mixinParam(url, config)
-      return dispatchNavigate(config)
+      const params = config || {}
+      return dispatchNavigate({
+        ...params,
+        routeUrl: this.mixinParam(url, params)
+      })
     }
     if (isObject(url)) {
       // 如果url为对象，则config为type, 即route(url, type)的形式
-      config = url
-      config.routeUrl = url.url
-      config.routeType = url.type || 'navigateTo'
-      Reflect.deleteProperty(config, 'url')
-      Reflect.deleteProperty(config, 'type')
-
-      const data = config.params || config.data
-      config.routeUrl = this.mixinParam(config.routeUrl, data)
-      return dispatchNavigate(config)
+      const { url: routeUrl, type = 'navigateTo', params, data, ...rest } = url
+      return dispatchNavigate({
+        ...rest,
+        routeType: type,
+        routeUrl: this.mixinParam(routeUrl, params || data)
+      })
     }
   }
   // 整合路由参数
