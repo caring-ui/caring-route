@@ -18,8 +18,7 @@
   </view>
 </template>
 <script>
-import route from '@/caring-route/src/index.js'
-// import route from 'caring-route'
+import route from 'caring-route'
 
 export default {
   methods: {

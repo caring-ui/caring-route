@@ -1,0 +1,8 @@
+packages:
+  - 'packages/*'
+  - 'playground'
+
+# 允许这些依赖执行 postinstall 构建脚本（pnpm 默认拦截，esbuild 需下载平台二进制）
+onlyBuiltDependencies:
+  - esbuild
+  - '@parcel/watcher'

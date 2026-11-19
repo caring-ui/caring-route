@@ -1,5 +1,4 @@
-import { queryParams } from 'caring-utils'
-import { isObject, isJsonString } from 'caring-test'
+import { queryParams, isObject, isJsonString } from 'caring-utils'
 const PARAMS_ROUTE = ['navigateTo', 'redirectTo', 'reLaunch']
 
 // 放在Route类里也可以

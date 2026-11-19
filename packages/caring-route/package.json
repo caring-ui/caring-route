@@ -7,9 +7,11 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "prepublishOnly": "rollup -c"
   },
   "type": "module",
+  "sideEffects": false,
   "keywords": [],
   "author": "风度万人迷",
   "repository": {
@@ -20,10 +22,8 @@
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.1",
-    "rollup": "^3.21.5"
-  },
-  "dependencies": {
     "caring-test": "^0.1.1",
-    "caring-utils": "^0.0.1"
+    "caring-utils": "^1.1.4",
+    "rollup": "^3.21.5"
   }
 }
